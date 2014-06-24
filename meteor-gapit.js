@@ -10,7 +10,6 @@ window.GapIt = (function () {
     _.options = {};
     /* Default options */
     _.defaultOptions = {
-      activateNow: true,
       meteorUrl: null,
       replaceUrl: true
     };
@@ -56,7 +55,7 @@ window.GapIt = (function () {
       _.ajax(requestUrl, _.requestOkay, _.requestFailed);
     };
     _.requestOkay = function (requestUrl, newDocument, request) {
-      if (_.options.replaceUrl === true) {
+      if (_.options.replaceUrl === true && 'history' in window && typeof window.history['replaceState'] === 'function') {
         window.history.replaceState({}, '', requestUrl);
       }
       _.replaceDocument(newDocument);
@@ -67,14 +66,13 @@ window.GapIt = (function () {
       if (navigator && 'app' in navigator && typeof navigator.app['exitApp'] === 'function') { navigator.app.exitApp(); }
     };
     /* Exported API */
+    api.activated = function () {
+      return _.loaded;
+    };
     api.activate = function (input) {
       var options = _.options = Zepto.extend({}, _.defaultOptions, input || {});
-      if (!options.activateNow) {
-        console.log('GapIt Info: Activate prevented due to passed options defining activateNow as falsey.');
-        return false;
-      }
       if (!options.meteorUrl) {
-        console.log('GapIt Error: GapIt activated without a meteorUrl! Define one in __GapItOptions__ or pass it to GapIt.activate explicitly.')
+        console.log('GapIt Error: GapIt activated without a meteorUrl!')
         return false;
       }
       document.addEventListener('load', function () { if (!_.loaded) { _.init(); } }, true);
@@ -84,7 +82,6 @@ window.GapIt = (function () {
     };
     api.zepto = Zepto;
     /* Init */
-    api.activate(window.__GapItOptions__);
     return api;
   }
 

@@ -17,14 +17,14 @@
     <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <script type="text/javascript">
-    __GapItOptions__ = {
-      meteorUrl: 'http://telescope.meteor.com'
-    };
-    </script>
     <script type="text/javascript" src="phonegap.js"></script>
     <script type="text/javascript" src="meteor-gapit.js"></script>
-    <title></title>
+    <script type="text/javascript">
+      GapIt.activate({
+        meteorUrl: 'http://leaderboard.meteor.com'
+      });
+    </script>
+    <title>Your App</title>
   </head>
   <body>
     <p>Please wait, loading application...</p>
