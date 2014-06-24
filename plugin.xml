@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="io.gapit.cordova"
+    version="0.1.0">
+    <name>GapIt</name>
+    <description>PhoneGap and Meteor integration</description>
+    <license>MIT</license>
+    <keywords>meteor,phonegap,meteor.js</keywords>
+    <author>Chris Wessels (undefined.za@gmail.com)</author>
+    <repo>https://github.com/chriswessels/phonegap-meteor-gapit.git</repo>
+
+    <asset src="meteor-gapit.js" target="meteor-gapit.js" />
+    <!-- Explicitly support Android because we must specify additional config options for iOS -->
+    <platform name="android">
+    </platform>
+    <platform name="ios">
+        <!-- Make sure we are fullscreen - the statusbar got to go... -->
+        <config-file target="*-Info.plist" parent="UIStatusBarHidden">
+            <true/>
+        </config-file>
+        <config-file target="*-Info.plist" parent="UIViewControllerBasedStatusBarAppearance">
+            <false/>
+        </config-file>
+    </platform>
+</plugin>
