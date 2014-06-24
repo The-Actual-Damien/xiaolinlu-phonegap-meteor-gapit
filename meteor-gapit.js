@@ -49,10 +49,7 @@ window.GapIt = (function () {
     _.init = function () {
       _.loaded = true;
       _.resetUrl = window.location.toString();
-      _.hijack(_.options.meteorUrl);
-    };
-    _.hijack = function (requestUrl) {
-      _.ajax(requestUrl, _.requestOkay, _.requestFailed);
+      api.hijack(_.options.meteorUrl);
     };
     _.requestOkay = function (requestUrl, newDocument, request) {
       if (_.options.replaceUrl === true && 'history' in window && typeof window.history['replaceState'] === 'function') {
@@ -76,6 +73,9 @@ window.GapIt = (function () {
         return false;
       }
       document.addEventListener('load', function () { if (!_.loaded) { _.init(); } }, true);
+    };
+    api.hijack = function (requestUrl) {
+      _.ajax(requestUrl, _.requestOkay, _.requestFailed);
     };
     api.reset = function () {
       window.location = _.resetUrl;
